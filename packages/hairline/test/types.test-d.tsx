@@ -46,8 +46,8 @@ f.update({ stagger: 60 });
 f.update({ bands: true });
 
 /* the entries export the functions, the components and three types, and nothing of the old API */
-yes<Equal<keyof typeof vanilla, "riffle" | "terrain" | "exploded" | "phosphor" | "slow" | "turntable" | "keyboard" | "elevator" | "phone" | "laptop" | "terminal" | "cabinet" | "branches" | "vault" | "lockers" | "padlock" | "patch" | "dish" | "router" | "loupe" | "sieve" | "rail" | "plug" | "query" | "drawer" | "basket" | "plot">>();
-yes<Equal<keyof typeof components, "Riffle" | "Terrain" | "Exploded" | "Phosphor" | "Slow" | "Turntable" | "Keyboard" | "Elevator" | "Phone" | "Laptop" | "Terminal" | "Cabinet" | "Branches" | "Vault" | "Lockers" | "Padlock" | "Patch" | "Dish" | "Router" | "Loupe" | "Sieve" | "Rail" | "Plug" | "Query" | "Drawer" | "Basket" | "Plot">>();
+yes<Equal<keyof typeof vanilla, "riffle" | "terrain" | "exploded" | "phosphor" | "slow" | "turntable" | "keyboard" | "elevator" | "phone" | "laptop" | "terminal" | "cabinet" | "branches" | "vault" | "lockers" | "padlock" | "patch" | "dish" | "router" | "loupe" | "sieve" | "rail" | "plug" | "query" | "drawer" | "basket" | "plot" | "clapper" | "camera" | "timeline">>();
+yes<Equal<keyof typeof components, "Riffle" | "Terrain" | "Exploded" | "Phosphor" | "Slow" | "Turntable" | "Keyboard" | "Elevator" | "Phone" | "Laptop" | "Terminal" | "Cabinet" | "Branches" | "Vault" | "Lockers" | "Padlock" | "Patch" | "Dish" | "Router" | "Loupe" | "Sieve" | "Rail" | "Plug" | "Query" | "Drawer" | "Basket" | "Plot" | "Clapper" | "Camera" | "Timeline">>();
 // @ts-expect-error ranges is gone
 void vanilla.ranges;
 // @ts-expect-error the per-figure option types are gone

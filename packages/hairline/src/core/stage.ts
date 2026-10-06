@@ -172,7 +172,7 @@ export type PointerHandlers = {
  * Pointer input in viewBox units. A mouse leaving acts at once; a finger
  * lifting holds the pose for 1.4s first, so a tap reads as a look rather than
  * a flash. Touch releases its capture on press, so dragging across the stage
- * keeps sending moves. Returns the disposer.
+ * keeps sending moves. On a phone, scrolling drives it too. Returns the disposer.
  */
 export function pointer(stage: HTMLElement, on: PointerHandlers): () => void {
   let tm = 0;
@@ -180,24 +180,37 @@ export function pointer(stage: HTMLElement, on: PointerHandlers): () => void {
     const r = stage.getBoundingClientRect();
     return [((e.clientX - r.left) / r.width) * 400, ((e.clientY - r.top) / r.height) * 320];
   };
+  let touching = false;
   const move = (e: PointerEvent) => { clearTimeout(tm); on.move(pt(e), e); };
   const down = (e: PointerEvent) => {
     clearTimeout(tm);
-    if (e.pointerType !== "mouse") stage.releasePointerCapture?.(e.pointerId);
+    if (e.pointerType !== "mouse") { touching = true; stage.releasePointerCapture?.(e.pointerId); }
     if (on.down) on.down(pt(e), e); else on.move(pt(e), e);
   };
   const leave = (e: PointerEvent) => {
     clearTimeout(tm);
-    tm = window.setTimeout(() => on.leave(e), e.pointerType === "mouse" ? 0 : 1400);
+    tm = window.setTimeout(() => { touching = false; on.leave(e); }, e.pointerType === "mouse" ? 0 : 1400);
   };
+  // A phone has no hover, and an up-or-down drag scrolls the page instead of reaching the figure. So while no
+  // finger is on it, scrolling walks a pointer across the figure, corner to corner: it answers as you scroll past.
+  const scroll = () => {
+    if (touching) return;
+    const r = stage.getBoundingClientRect(), vh = window.innerHeight;
+    if (r.bottom < 0 || r.top > vh || !r.height) return;
+    const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+    on.move([60 + 280 * p, 250 - 180 * p], new PointerEvent("pointermove", { pointerType: "touch" }));
+  };
+  const phone = !!window.matchMedia?.("(hover: none) and (pointer: coarse)").matches;
   stage.addEventListener("pointermove", move);
   stage.addEventListener("pointerdown", down);
   stage.addEventListener("pointerleave", leave);
+  if (phone) { window.addEventListener("scroll", scroll, { passive: true }); scroll(); }
   return () => {
     clearTimeout(tm);
     stage.removeEventListener("pointermove", move);
     stage.removeEventListener("pointerdown", down);
     stage.removeEventListener("pointerleave", leave);
+    window.removeEventListener("scroll", scroll);
   };
 }
 

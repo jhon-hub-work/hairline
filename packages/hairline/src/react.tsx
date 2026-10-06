@@ -2,7 +2,7 @@ import {
   forwardRef, useCallback, useEffect, useLayoutEffect, useRef,
   type ComponentPropsWithoutRef, type ForwardRefExoticComponent, type RefAttributes,
 } from "react";
-import { basket, branches, cabinet, dish, drawer, elevator, exploded, keyboard, laptop, lockers, loupe, padlock, patch, phone, phosphor, plot, plug, query, rail, riffle, router, sieve, slow, terminal, terrain, turntable, vault, type Figure, type HairlineOptions } from "./index";
+import { basket, branches, cabinet, dish, drawer, elevator, exploded, keyboard, laptop, lockers, loupe, padlock, patch, phone, phosphor, plot, plug, clapper, camera, timeline, query, rail, riffle, router, sieve, slow, terminal, terrain, turntable, vault, type Figure, type HairlineOptions } from "./index";
 
 /**
  * @lucasmarkes/hairline/react — the twenty-seven figures as components.
@@ -107,3 +107,6 @@ export const Drawer = make("Drawer", drawer);
 export const Basket = make("Basket", basket);
 /** A bar chart with no data: seven flat tabs on its base, before a plate of grid lines. The pointer brushes them, and each lifts a little, the nearest most, and drops back to zero. `intensity` lifts them higher. */
 export const Plot = make("Plot", plot);
+export const Clapper = make("Clapper", clapper);
+export const Camera = make("Camera", camera);
+export const Timeline = make("Timeline", timeline);

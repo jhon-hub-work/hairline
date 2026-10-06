@@ -15,6 +15,9 @@ import { mount as patchEngine } from "./figures/patch";
 import { mount as phoneEngine } from "./figures/phone";
 import { mount as phosphorEngine } from "./figures/phosphor";
 import { mount as plotEngine } from "./figures/plot";
+import { mount as clapperEngine } from "./figures/clapper";
+import { mount as cameraEngine } from "./figures/camera";
+import { mount as timelineEngine } from "./figures/timeline";
 import { mount as plugEngine } from "./figures/plug";
 import { mount as queryEngine } from "./figures/query";
 import { mount as railEngine } from "./figures/rail";
@@ -305,5 +308,37 @@ export function plot(el: HTMLElement, options?: HairlineOptions): Figure {
     label: "A bar chart with no data: seven flat tabs on its base, before a plate of grid lines. The pointer brushes them, and each lifts a little, the nearest most, and drops back to zero.",
     rest: "rest",
     engine: plotEngine,
+  }, el, options);
+}
+
+/* ---------- Jhon's figures (jhon-hub-work/hairline), on the same engine ---------- */
+
+/** A film slate: its striped clapstick lifts as the pointer comes near, and claps shut when it leaves. `intensity` opens it wider. */
+export function clapper(el: HTMLElement, options?: HairlineOptions): Figure {
+  return create({
+    id: "clapper",
+    label: "A film slate: its striped clapstick lifts as the pointer comes near, and claps shut when it leaves.",
+    rest: "rest",
+    engine: clapperEngine,
+  }, el, options);
+}
+
+/** A video camera on a tripod: its lens turns and tips toward the pointer, on a spring. `intensity` swings it further. */
+export function camera(el: HTMLElement, options?: HairlineOptions): Figure {
+  return create({
+    id: "camera",
+    label: "A video camera on a tripod: its lens turns and tips toward the pointer, on a spring.",
+    rest: "rest",
+    engine: cameraEngine,
+  }, el, options);
+}
+
+/** A video timeline of three tracks: the clip under the pointer lifts out, and its neighbours follow, less each step. `intensity` spreads it further. */
+export function timeline(el: HTMLElement, options?: HairlineOptions): Figure {
+  return create({
+    id: "timeline",
+    label: "A video timeline of three tracks: the clip under the pointer lifts out, and its neighbours on the track follow, less each step.",
+    rest: "rest",
+    engine: timelineEngine,
   }, el, options);
 }

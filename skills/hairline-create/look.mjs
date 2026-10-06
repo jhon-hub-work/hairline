@@ -271,7 +271,11 @@ export async function look(src, given0 = {}, cwd = process.cwd()) {
     console.error('Check the network and run this again, or look without a browser: look.md, "Without a browser".');
     return 2;
   }
-  const browser = await pw.chromium.launch({ channel: "chrome" }).catch(() => pw.chromium.launch()).catch(() => null);
+  // HAIRLINE_LOOK_BROWSER: a Chromium-based browser to drive instead of Chrome (Jhon's PC: Brave; Chrome is not ours to automate)
+  const own = process.env.HAIRLINE_LOOK_BROWSER;
+  const browser = own
+    ? await pw.chromium.launch({ executablePath: own }).catch(() => null)
+    : await pw.chromium.launch({ channel: "chrome" }).catch(() => pw.chromium.launch()).catch(() => null);
   if (!browser) {
     console.error(`look: no Chrome, and no Chromium of Playwright's. Install one once:\n  node "${pw.cli}" install chromium`);
     console.error('Then run this again. Without a browser, look.md says what to do: "Without a browser".');
